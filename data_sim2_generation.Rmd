@@ -1,0 +1,159 @@
+---
+title: "Sim"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+# install package
+
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# 
+# BiocManager::install("splatter")
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library("splatter")
+  library("scater")
+  library("ggplot2")
+})
+```
+
+
+```{r}
+# weak batch effect
+
+set.seed(1)
+
+# size ratio: 1/1
+sim.weak.1.1 <- splatSimulate(nGenes = 1000, batchCells = c(250, 250),
+                      batch.facLoc = 0.01, batch.facScale = 0.01, 
+                      verbose = FALSE)
+df.sim.weak.1.1 <- counts(sim.weak.1.1) # generate data: rows: genes; columns: cells.
+
+sim.weak.1.1 <- logNormCounts(sim.weak.1.1) # log normalization
+sim.weak.1.1 <- runPCA(sim.weak.1.1) # PCA
+p.weak.1.1 <- plotPCA(sim.weak.1.1, colour_by = "Batch") + ggtitle("Weak batch effects + size ratio 1/1")
+
+# size ratio: 1/3
+sim.weak.1.3 <- splatSimulate(nGenes = 1000, batchCells = c(125, 375),
+                      batch.facLoc = 0.01, batch.facScale = 0.01,
+                      verbose = FALSE)
+df.sim.weak.1.3 <- counts(sim.weak.1.3) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/4
+sim.weak.1.4 <- splatSimulate(nGenes = 1000, batchCells = c(100, 400),
+                      batch.facLoc = 0.01, batch.facScale = 0.01,
+                      verbose = FALSE)
+df.sim.weak.1.4 <- counts(sim.weak.1.4) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/9
+sim.weak.1.9 <- splatSimulate(nGenes = 1000, batchCells = c(50, 450),
+                      batch.facLoc = 0.01, batch.facScale = 0.01,
+                      verbose = FALSE)
+df.sim.weak.1.9 <- counts(sim.weak.1.9) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/19
+sim.weak.1.19 <- splatSimulate(nGenes = 1000, batchCells = c(25, 475),
+                      batch.facLoc = 0.01, batch.facScale = 0.01,
+                      verbose = FALSE)
+df.sim.weak.1.19 <- counts(sim.weak.1.19) # generate data: rows: genes; columns: cells.
+
+# write.csv(df.sim.weak.1.1,'weak/df.sim.weak.1.1.csv')
+# write.csv(df.sim.weak.1.3,'weak/df.sim.weak.1.3.csv')
+# write.csv(df.sim.weak.1.4,'weak/df.sim.weak.1.4.csv')
+# write.csv(df.sim.weak.1.9,'weak/df.sim.weak.1.9.csv')
+# write.csv(df.sim.weak.1.19,'weak/df.sim.weak.1.19.csv')
+```
+
+
+
+```{r}
+# mild batch effect
+set.seed(10)
+
+# size ratio: 1/1
+sim.mild.1.1 <- splatSimulate(nGenes = 1000, batchCells = c(250, 250),
+                      batch.facLoc = 0.05, batch.facScale = 0.05,
+                      verbose = FALSE)
+df.sim.mild.1.1 <- counts(sim.mild.1.1) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/3
+sim.mild.1.3 <- splatSimulate(nGenes = 1000, batchCells = c(125, 375),
+                      batch.facLoc = 0.05, batch.facScale = 0.05,
+                      verbose = FALSE)
+df.sim.mild.1.3 <- counts(sim.mild.1.3) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/4
+sim.mild.1.4 <- splatSimulate(nGenes = 1000, batchCells = c(100, 400),
+                      batch.facLoc = 0.05, batch.facScale = 0.05,
+                      verbose = FALSE)
+df.sim.mild.1.4 <- counts(sim.mild.1.4) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/9
+sim.mild.1.9 <- splatSimulate(nGenes = 1000, batchCells = c(50, 450),
+                      batch.facLoc = 0.05, batch.facScale = 0.05,
+                      verbose = FALSE)
+df.sim.mild.1.9 <- counts(sim.mild.1.9) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/19
+sim.mild.1.19 <- splatSimulate(nGenes = 1000, batchCells = c(25, 475),
+                      batch.facLoc = 0.05, batch.facScale = 0.05,
+                      verbose = FALSE)
+df.sim.mild.1.19 <- counts(sim.mild.1.19) # generate data: rows: genes; columns: cells.
+
+# write.csv(df.sim.mild.1.1,'mild/df.sim.mild.1.1.csv')
+# write.csv(df.sim.mild.1.3,'mild/df.sim.mild.1.3.csv')
+# write.csv(df.sim.mild.1.4,'mild/df.sim.mild.1.4.csv')
+# write.csv(df.sim.mild.1.9,'mild/df.sim.mild.1.9.csv')
+# write.csv(df.sim.mild.1.19,'mild/df.sim.mild.1.19.csv')
+```
+
+
+```{r}
+# strong batch effect
+set.seed(100)
+
+# size ratio: 1/1
+sim.strong.1.1 <- splatSimulate(nGenes = 1000, batchCells = c(250, 250),
+                      batch.facLoc = 0.1, batch.facScale = 0.1,
+                      verbose = FALSE)
+df.sim.strong.1.1 <- counts(sim.strong.1.1) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/3
+sim.strong.1.3 <- splatSimulate(nGenes = 1000, batchCells = c(125, 375),
+                      batch.facLoc = 0.1, batch.facScale = 0.1,
+                      verbose = FALSE)
+df.sim.strong.1.3 <- counts(sim.strong.1.3) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/4
+sim.strong.1.4 <- splatSimulate(nGenes = 1000, batchCells = c(100, 400),
+                      batch.facLoc = 0.1, batch.facScale = 0.1,
+                      verbose = FALSE)
+df.sim.strong.1.4 <- counts(sim.strong.1.4) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/9
+sim.strong.1.9 <- splatSimulate(nGenes = 1000, batchCells = c(50, 450),
+                      batch.facLoc = 0.1, batch.facScale = 0.1,
+                      verbose = FALSE)
+df.sim.strong.1.9 <- counts(sim.strong.1.9) # generate data: rows: genes; columns: cells.
+
+# size ratio: 1/19
+sim.strong.1.19 <- splatSimulate(nGenes = 1000, batchCells = c(25, 475),
+                      batch.facLoc = 0.1, batch.facScale = 0.1,
+                      verbose = FALSE)
+df.sim.strong.1.19 <- counts(sim.strong.1.19) # generate data: rows: genes; columns: cells.
+
+# write.csv(df.sim.strong.1.1,'strong/df.sim.strong.1.1.csv')
+# write.csv(df.sim.strong.1.3,'strong/df.sim.strong.1.3.csv')
+# write.csv(df.sim.strong.1.4,'strong/df.sim.strong.1.4.csv')
+# write.csv(df.sim.strong.1.9,'strong/df.sim.strong.1.9.csv')
+# write.csv(df.sim.strong.1.19,'strong/df.sim.strong.1.19.csv')
+```
+
